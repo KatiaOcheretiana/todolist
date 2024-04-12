@@ -1,7 +1,8 @@
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { FilterValuesType } from "../../App";
 
 export type TaskType = {
-  id: number;
+  id: string;
   title: string;
   isDone: boolean;
 };
@@ -9,17 +10,45 @@ export type TaskType = {
 type PropsType = {
   title: string;
   tasks: TaskType[];
-  deleteTask: (value: number) => void;
+  deleteTask: (value: string) => void;
   changeFilter: (value: FilterValuesType) => void;
+  addTask: (title: string) => void;
 };
 
 export const TodoList = (props: PropsType) => {
+  const [title, setTitle] = useState("");
+
+  const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value);
+  };
+
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.charCode === 13) {
+      props.addTask(title);
+      setTitle("");
+    }
+  };
+
+  const addTask = () => {
+    props.addTask(title);
+    setTitle("");
+  };
+
+  const filterHandler = (value: FilterValuesType): void => {
+    props.changeFilter(value);
+  };
+
   return (
     <div>
       <h2>{props.title}</h2>
       <div>
-        <input type="text" />
-        <button>+</button>
+        <input
+          type="text"
+          value={title}
+          onChange={onTitleChange}
+          onKeyPress={onKeyPressHandler}
+        />
+        <button onClick={addTask}>+</button>
         <ul>
           {props.tasks.map((item) => {
             return (
@@ -38,11 +67,9 @@ export const TodoList = (props: PropsType) => {
           })}
         </ul>
         <div>
-          <button onClick={() => props.changeFilter("all")}>All</button>
-          <button onClick={() => props.changeFilter("active")}>Active</button>
-          <button onClick={() => props.changeFilter("completed")}>
-            Completed
-          </button>
+          <button onClick={() => filterHandler("all")}>All</button>
+          <button onClick={() => filterHandler("active")}>Active</button>
+          <button onClick={() => filterHandler("completed")}>Completed</button>
         </div>
       </div>
     </div>
