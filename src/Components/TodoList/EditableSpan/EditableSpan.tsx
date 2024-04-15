@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { SpanInput } from "./EditableSpan.styled";
 
 type EditableSpanPropsType = {
   title: string;
@@ -23,7 +24,7 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
   };
 
   return editMode ? (
-    <input
+    <SpanInput
       type="text"
       value={title}
       onBlur={activateViewMode}

@@ -1,8 +1,11 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { StyledInput } from "./AddItemForm.styled";
+import { InputWrapper } from "./AddItemForm.styled";
+import { IconButton, TextField } from "@mui/material";
+import AddTaskIcon from "@mui/icons-material/AddTask";
 
 type AddItemFormProps = {
   addItem: (title: string) => void;
+  label: string;
 };
 
 export const AddItemForm = (props: AddItemFormProps) => {
@@ -12,6 +15,7 @@ export const AddItemForm = (props: AddItemFormProps) => {
 
   const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
+    setError(null);
   };
 
   const addTitleTask = () => {
@@ -31,16 +35,20 @@ export const AddItemForm = (props: AddItemFormProps) => {
   };
 
   return (
-    <div>
-      <StyledInput
-        type="text"
-        value={title}
-        onChange={onTitleChange}
-        onKeyPress={onKeyPressHandler}
-        error={error}
-      />
-      <button onClick={addTitleTask}>+</button>
+    <>
+      <InputWrapper>
+        <TextField
+          label={props.label}
+          variant="standard"
+          value={title}
+          onChange={onTitleChange}
+          onKeyPress={onKeyPressHandler}
+        />
+        <IconButton onClick={addTitleTask}>
+          <AddTaskIcon stroke="orange" />
+        </IconButton>
+      </InputWrapper>
       {error && <p style={{ color: "red" }}> {error}</p>}
-    </div>
+    </>
   );
 };

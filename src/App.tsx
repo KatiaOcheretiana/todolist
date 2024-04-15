@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TaskType, TodoList } from "./Components/TodoList/TodoList/TodoList";
 import { v1 } from "uuid";
 import { AddItemForm } from "./Components/TodoList/AddItemForm/AddItemForm";
+import { Box } from "@mui/material";
 
 export type FilterValuesType = "all" | "completed" | "active";
 
@@ -120,8 +121,18 @@ function App() {
   };
 
   return (
-    <div style={{ display: "flex", gap: "50px" }}>
-      <AddItemForm addItem={addTodolist} />
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "40px",
+        "& > :not(style)": {
+          m: 2,
+          width: 300,
+        },
+      }}
+    >
+      <AddItemForm addItem={addTodolist} label="Create new task list" />
       {todolists.map((t) => {
         let filteredTasks: TaskType[] = allTasks[t.id];
 
@@ -151,7 +162,7 @@ function App() {
           />
         );
       })}
-    </div>
+    </Box>
   );
 }
 

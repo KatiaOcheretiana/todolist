@@ -1,5 +1,9 @@
 import styled, { createGlobalStyle } from "styled-components";
 import "modern-normalize";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 export const GlobalStyle = createGlobalStyle`
 html {
@@ -45,7 +49,7 @@ img {
 
 body {
   margin: 0 ;
-  font-family: "Inter", sans-serif;
+   font-family: 'Roboto', sans-serif;
   color: black;
 
   -webkit-font-smoothing: antialiased;
