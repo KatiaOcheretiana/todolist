@@ -25,7 +25,11 @@ const GridStyle = styled(Grid)`
 
 export type FilterValuesType = "all" | "completed" | "active";
 
-type TodoListType = { id: string; title: string; filter: FilterValuesType };
+export type TodoListType = {
+  id: string;
+  title: string;
+  filter: FilterValuesType;
+};
 
 type TasksStateType = { [key: string]: Array<TaskType> };
 
