@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { FilterValuesType } from "../../../App";
 import {
   ButtonWrapper,
+  CheckBoxTitle,
   ItemOfList,
   StyledButton,
   TitleListWrapper,
@@ -51,11 +52,13 @@ export const TodoList = (props: PropsType) => {
   };
 
   return (
-    <div>
+    <>
       <TitleListWrapper>
-        <h2>
-          <EditableSpan title={props.title} onChange={changeTodolistTitle} />
-        </h2>
+        <EditableSpan
+          element="h5"
+          title={props.title}
+          onChange={changeTodolistTitle}
+        />
 
         <IconButton
           aria-label="delete"
@@ -69,7 +72,7 @@ export const TodoList = (props: PropsType) => {
       </TitleListWrapper>
       <div>
         <AddItemForm addItem={addTaskTitle} label="Write your next task" />
-        <ul>
+        <ul style={{ marginTop: "15px" }}>
           {props.tasks.map((item) => {
             const onChangeStatusHandler = (
               e: ChangeEvent<HTMLInputElement>
@@ -88,7 +91,7 @@ export const TodoList = (props: PropsType) => {
             return (
               <ItemOfList key={item.id} isDone={item.isDone}>
                 <TitleListWrapper>
-                  <div>
+                  <CheckBoxTitle>
                     <Checkbox
                       checked={item.isDone}
                       onChange={onChangeStatusHandler}
@@ -98,7 +101,7 @@ export const TodoList = (props: PropsType) => {
                       title={item.title}
                       onChange={onChangeTitleHandler}
                     />
-                  </div>
+                  </CheckBoxTitle>
 
                   <IconButton
                     aria-label="delete"
@@ -116,31 +119,30 @@ export const TodoList = (props: PropsType) => {
         </ul>
         <ButtonWrapper>
           <StyledButton
-            variant="contained"
+            variant={props.filter === "all" ? "contained" : "outlined"}
             size="small"
-            active={props.filter === "all"}
             onClick={() => props.changeFilter("all", props.id)}
           >
             All
           </StyledButton>
           <StyledButton
-            variant="contained"
+            variant={props.filter === "active" ? "contained" : "outlined"}
             size="small"
-            active={props.filter === "active"}
+            color="error"
             onClick={() => props.changeFilter("active", props.id)}
           >
             Active
           </StyledButton>
           <StyledButton
-            variant="contained"
+            variant={props.filter === "completed" ? "contained" : "outlined"}
             size="small"
-            active={props.filter === "completed"}
+            color="success"
             onClick={() => props.changeFilter("completed", props.id)}
           >
             Completed
           </StyledButton>
         </ButtonWrapper>
       </div>
-    </div>
+    </>
   );
 };

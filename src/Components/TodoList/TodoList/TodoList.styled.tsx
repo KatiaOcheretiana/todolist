@@ -1,20 +1,20 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
 
-interface StyledButtonProps {
-  active: boolean;
-}
-
-export const StyledButton = styled(Button)<StyledButtonProps>`
-  opacity: ${(props) => (props.active ? 1 : 0.4)};
-  color: white;
-  padding: 5px 10px;
-  margin-right: 10px;
+export const StyledButton = styled(Button)`
+  opacity: ${(props) => (props.variant === "contained" ? 1 : 0.4)};
 `;
 
 interface ItemOfListProps {
   isDone: boolean;
 }
+
+export const CheckBoxTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+`;
 
 export const ItemOfList = styled.li<ItemOfListProps>`
   opacity: ${(props) => (props.isDone ? "0.4" : "1")};
@@ -28,7 +28,13 @@ export const TitleListWrapper = styled.div`
 
 export const ButtonWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 5px;
   justify-content: space-between;
   margin-top: 15px;
   padding: 0 10px;
+
+  @media screen and (min-width: 375px) {
+    flex-direction: row;
+  }
 `;

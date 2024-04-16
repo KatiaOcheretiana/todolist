@@ -1,9 +1,11 @@
 import { ChangeEvent, useState } from "react";
-import { SpanInput } from "./EditableSpan.styled";
+
+import { TextField, Typography } from "@mui/material";
 
 type EditableSpanPropsType = {
   title: string;
   onChange: (newTitle: string) => void;
+  element?: any;
 };
 
 export const EditableSpan = (props: EditableSpanPropsType) => {
@@ -24,7 +26,10 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
   };
 
   return editMode ? (
-    <SpanInput
+    <TextField
+      size="small"
+      color="warning"
+      multiline
       type="text"
       value={title}
       onBlur={activateViewMode}
@@ -32,6 +37,13 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
       onChange={onChangeTitleHandler}
     />
   ) : (
-    <span onDoubleClick={activateEditMode}>{props.title}</span>
+    <Typography
+      // variant="subtitle2"
+      // component="h4"
+      variant={props.element || "p"}
+      onDoubleClick={activateEditMode}
+    >
+      {props.title}
+    </Typography>
   );
 };

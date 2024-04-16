@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { InputWrapper } from "./AddItemForm.styled";
-import { IconButton, TextField } from "@mui/material";
+import { InputStyle, InputWrapper } from "./AddItemForm.styled";
+import { IconButton } from "@mui/material";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 
 type AddItemFormProps = {
@@ -11,11 +11,11 @@ type AddItemFormProps = {
 export const AddItemForm = (props: AddItemFormProps) => {
   const [title, setTitle] = useState("");
 
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
-    setError(null);
+    setError(false);
   };
 
   const addTitleTask = () => {
@@ -23,12 +23,12 @@ export const AddItemForm = (props: AddItemFormProps) => {
       props.addItem(title.trim());
       setTitle("");
     } else {
-      setError("Title is required!");
+      setError(true);
     }
   };
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
+    setError(false);
     if (e.charCode === 13) {
       addTitleTask();
     }
@@ -37,18 +37,20 @@ export const AddItemForm = (props: AddItemFormProps) => {
   return (
     <>
       <InputWrapper>
-        <TextField
+        <InputStyle
+          multiline
+          error={error}
           label={props.label}
           variant="standard"
           value={title}
           onChange={onTitleChange}
           onKeyPress={onKeyPressHandler}
+          helperText={error ? "Title is required!" : ""}
         />
         <IconButton onClick={addTitleTask}>
           <AddTaskIcon stroke="orange" />
         </IconButton>
       </InputWrapper>
-      {error && <p style={{ color: "red" }}> {error}</p>}
     </>
   );
 };
