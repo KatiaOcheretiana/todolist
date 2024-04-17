@@ -31,7 +31,7 @@ export type TodoListType = {
   filter: FilterValuesType;
 };
 
-type TasksStateType = { [key: string]: Array<TaskType> };
+export type TasksStateType = { [key: string]: Array<TaskType> };
 
 function App() {
   const todolistId1 = v1();
