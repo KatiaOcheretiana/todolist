@@ -89,7 +89,7 @@ export const TodoList = (props: PropsType) => {
             };
 
             return (
-              <ItemOfList key={item.id} isDone={item.isDone}>
+              <ItemOfList key={item.id} isdone={item.isDone ? "0.4" : "1"}>
                 <TitleListWrapper>
                   <CheckBoxTitle>
                     <Checkbox

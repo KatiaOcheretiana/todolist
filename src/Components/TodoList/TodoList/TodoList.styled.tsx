@@ -6,7 +6,7 @@ export const StyledButton = styled(Button)`
 `;
 
 interface ItemOfListProps {
-  isDone: boolean;
+  isdone: string;
 }
 
 export const CheckBoxTitle = styled.div`
@@ -17,7 +17,7 @@ export const CheckBoxTitle = styled.div`
 `;
 
 export const ItemOfList = styled.li<ItemOfListProps>`
-  opacity: ${(props) => (props.isDone ? "0.4" : "1")};
+  opacity: ${(props) => props.isdone};
 `;
 
 export const TitleListWrapper = styled.div`

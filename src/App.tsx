@@ -182,7 +182,7 @@ function App() {
             }
 
             return (
-              <GridStyle item>
+              <GridStyle item key={t.id}>
                 <Paper style={{ padding: "20px" }} elevation={6}>
                   <TodoList
                     key={t.id}
