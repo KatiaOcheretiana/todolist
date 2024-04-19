@@ -39,8 +39,24 @@ type ActionsType =
   | AddTodolistActionType
   | RemoveTodolistActionType;
 
+const initialState: TasksStateType = {
+  // [todolistId1]: [
+  //   { id: v1(), title: "CSS", isDone: true },
+  //   { id: v1(), title: "HTML", isDone: true },
+  //   { id: v1(), title: "JS", isDone: false },
+  //   { id: v1(), title: "React", isDone: true },
+  //   { id: v1(), title: "TS", isDone: true },
+  // ],
+  // [todolistId2]: [
+  //   { id: v1(), title: "book", isDone: true },
+  //   { id: v1(), title: "milk", isDone: true },
+  //   { id: v1(), title: "lemon", isDone: false },
+  //   { id: v1(), title: "sugar", isDone: true },
+  // ],
+};
+
 export const taskReducer = (
-  state: TasksStateType,
+  state: TasksStateType = initialState,
   action: ActionsType
 ): TasksStateType => {
   switch (action.type) {
@@ -65,10 +81,9 @@ export const taskReducer = (
     case "CHANGE-TASK-STATUS": {
       const stateCopy = { ...state };
       const tasks = stateCopy[action.todolistId];
-      const currentTast = tasks.find((t) => t.id === action.taskId);
-      if (currentTast) {
-        currentTast.isDone = action.isDone;
-      }
+      stateCopy[action.todolistId] = tasks.map((t) =>
+        t.id === action.taskId ? { ...t, isDone: action.isDone } : t
+      );
 
       return stateCopy;
     }
@@ -76,10 +91,9 @@ export const taskReducer = (
     case "CHANGE-TASK-TITLE": {
       const stateCopy = { ...state };
       const tasks = stateCopy[action.todolistId];
-      const currentTast = tasks.find((t) => t.id === action.taskId);
-      if (currentTast) {
-        currentTast.title = action.title;
-      }
+      stateCopy[action.todolistId] = tasks.map((t) =>
+        t.id === action.taskId ? { ...t, title: action.title } : t
+      );
 
       return stateCopy;
     }
