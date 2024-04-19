@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { InputStyle, InputWrapper } from "./AddItemForm.styled";
 import { IconButton } from "@mui/material";
 import AddTaskIcon from "@mui/icons-material/AddTask";
@@ -8,7 +8,9 @@ type AddItemFormProps = {
   label: string;
 };
 
-export const AddItemForm = (props: AddItemFormProps) => {
+export const AddItemForm = React.memo((props: AddItemFormProps) => {
+  console.log("AddItemForm");
+
   const [title, setTitle] = useState("");
 
   const [error, setError] = useState<boolean>(false);
@@ -28,7 +30,9 @@ export const AddItemForm = (props: AddItemFormProps) => {
   };
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(false);
+    if (error === true) {
+      setError(false);
+    }
     if (e.charCode === 13) {
       addTitleTask();
     }
@@ -38,7 +42,6 @@ export const AddItemForm = (props: AddItemFormProps) => {
     <>
       <InputWrapper>
         <InputStyle
-          multiline
           error={error}
           label={props.label}
           variant="standard"
@@ -53,4 +56,4 @@ export const AddItemForm = (props: AddItemFormProps) => {
       </InputWrapper>
     </>
   );
-};
+});
