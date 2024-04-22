@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addTaskAC } from "../../store/tasksReducer/tasksReducer";
 import { changeTodolistTitleAC } from "../../store/todolistsReducer/todolistsReducer";
-import { AppRootState } from "../../store/store";
+import { AppRootStateType } from "../../store/store";
 import { TaskItem } from "../TaskItem/TaskItem";
 
 export type TaskType = {
@@ -37,7 +37,7 @@ export const TodoList = React.memo(function (props: PropsType) {
 
   const dispatch = useDispatch();
 
-  const allTasks = useSelector<AppRootState, Array<TaskType>>(
+  const allTasks = useSelector<AppRootStateType, Array<TaskType>>(
     (state) => state.tasks[props.id]
   );
 
